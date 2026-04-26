@@ -5,10 +5,14 @@ import { useState } from "react";
 const SkillCard = ({ authorEmail, category, createdAt, description, installCommand, tags, title}:SkillRecord) => {
     const [copied, setCopied] = useState(false);
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(installCommand as string);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(installCommand);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch {
+            setCopied(false);
+        }
     };
     
     return (  
@@ -21,7 +25,7 @@ const SkillCard = ({ authorEmail, category, createdAt, description, installComma
                     <div className="light amber"/>
                     <div className="light green"/>
                 </div>
-                <div className="host">registery.sh</div>
+                <div className="host">registry.sh</div>
             </div>
            </div>
             <div className="body">
@@ -29,8 +33,8 @@ const SkillCard = ({ authorEmail, category, createdAt, description, installComma
                     <div className="author">
                         <img src="/logo512.png" alt="author avatar" className="avatar"  />
                         <div className="author-copy">
-                            <p>Maxtar</p>
-                            <p>{new Date(createdAt as string).toLocaleDateString()}</p>
+                            <p>{authorEmail.split('@')[0]}</p>
+                            <p>{createdAt ? new Date(createdAt).toLocaleDateString() : "Unknown date"}</p>
                         </div>
                     </div>
                     <p className="category">{category}</p>

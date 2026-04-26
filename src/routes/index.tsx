@@ -12,18 +12,18 @@ function App() {
       <section className="hero">
         <div className="copy">
         <h1>
-          The registery for <br />
+          The registry for <br />
          <span>Agentic Intelligence.</span> 
         </h1>
         <p>
-          A hight-performance registery for procedural agent.
+          A high-performance registry for procedural agents.
           Discover, publish, and operate reusable agent capabilities from a route-driven workspace.
           </p>
         </div>
           <div className="actions">
             <Link to="/skills" className="btn-primary">
               <Terminal size={18} />
-                <span>Browse Registery</span>
+                <span>Browse Registry</span>
             </Link>
              <Link to="/skills/new" className="btn-secondary">
                 Publish Skill
