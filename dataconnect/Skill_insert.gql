@@ -1,0 +1,16 @@
+# This is a file for you to write an un-named mutation. 
+# Only one un-named mutation is allowed per file.
+mutation {
+  skill_insert(
+    data: {
+        id: "11111111222233334444555555555555",
+        authorClerkId: "user_3CuOp5YPaToYDm2fBWpujKkxhRj", 
+        createdAt: "2026-04-29T22:35:32.480Z", 
+        description: "Learn the fundamentals of React including components, props, and state management.", 
+        installCommand: "npm install react-basics", 
+        promptCommand: "You are a Frontend Developer who specializes in building user interfaces with React.", 
+        tags: ["react", "frontend-development", "react-basics"], 
+        title: "React Basics", 
+        usageExample: "1. Install the package: npm install react-basics\n2. Import the library in your project: import { Component } from 'react-basics';\n3. Create a React component using the library and render it in your application."}
+  )
+}

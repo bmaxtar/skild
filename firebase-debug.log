@@ -1,0 +1,16 @@
+[debug] [2026-04-29T23:01:27.892Z] ----------------------------------------------------------------------
+[debug] [2026-04-29T23:01:27.895Z] Command:       /Users/admin/.nvm/versions/node/v24.14.0/bin/node /Users/admin/.nvm/versions/node/v24.14.0/bin/firebase dataconnect:sdk:generate
+[debug] [2026-04-29T23:01:27.895Z] CLI Version:   15.16.0
+[debug] [2026-04-29T23:01:27.895Z] Platform:      darwin
+[debug] [2026-04-29T23:01:27.895Z] Node Version:  v24.14.0
+[debug] [2026-04-29T23:01:27.896Z] Time:          Wed Apr 29 2026 23:01:27 GMT+0000 (Greenwich Mean Time)
+[debug] [2026-04-29T23:01:27.896Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-29T23:01:29.591Z] defaultcredentials: writing to file /Users/admin/.config/firebase/bmaxtar_gmail_com_application_default_credentials.json
+[info] ✔  dataconnect: Successfully Generated SDKs for services: studio-2481253546-3a095-service 
+[debug] [2026-04-29T23:01:39.752Z] Error: Timed out.
+    at Timeout._onTimeout (/Users/admin/.nvm/versions/node/v24.14.0/lib/node_modules/firebase-tools/lib/utils.js:309:49)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.

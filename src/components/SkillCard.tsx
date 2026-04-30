@@ -9,19 +9,22 @@ import {
 } from "lucide-react";
 import { usePostHog } from "posthog-js/react";
 import { useState } from "react";
+import type { GetSkillsData } from "#/dataconnect-generated";
+
+type SkillCardProps = GetSkillsData["skills"][number];
 
 const SkillCard = ({
-	id,
-	authorEmail,
-	category,
 	createdAt,
 	description,
 	installCommand,
 	tags,
 	title,
-}: SkillRecord) => {
+	author,
+}: SkillCardProps) => {
 	const [copied, setCopied] = useState(false);
 	const posthog = usePostHog();
+
+	const category = tags[0] ?? "General";
 
 	const handleCopy = async () => {
 		try {
@@ -29,22 +32,13 @@ const SkillCard = ({
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2000);
 			posthog.capture("install_command_copied", {
-				skill_id: id,
 				skill_title: title,
-				category,
+				skill_category: category,
 				install_command: installCommand,
 			});
 		} catch {
 			setCopied(false);
 		}
-	};
-
-	const handleOpen = () => {
-		posthog.capture("skill_opened", {
-			skill_id: id,
-			skill_title: title,
-			category,
-		});
 	};
 
 	return (
@@ -55,6 +49,7 @@ const SkillCard = ({
 				aria-label={`Open ${title}`}
 				className="overlay"
 			/>
+
 			<div className="chrome">
 				<div className="chrome-bar">
 					<div className="lights">
@@ -65,12 +60,17 @@ const SkillCard = ({
 					<div className="host">registry.sh</div>
 				</div>
 			</div>
+
 			<div className="body">
 				<div className="meta">
 					<div className="author">
-						<img src="/logo512.png" alt="author avatar" className="avatar" />
+						<img
+							src={author.imageUrl || "/logo512.png"}
+							alt={`${author.username} avatar`}
+							className="avatar"
+						/>
 						<div className="author-copy">
-							<p>{authorEmail.split("@")[0]}</p>
+							<p>{author.username}</p>
 							<p>
 								{createdAt
 									? new Date(createdAt).toLocaleDateString()
@@ -78,14 +78,18 @@ const SkillCard = ({
 							</p>
 						</div>
 					</div>
+
 					<p className="category">{category}</p>
 				</div>
+
 				<div className="summary">
 					<Link to="/skills" className="title-link">
 						<h3>{title}</h3>
 					</Link>
+
 					<p>{description}</p>
 				</div>
+
 				<div className="command">
 					<div className="command-copy">
 						<span>{">_"}</span>
@@ -100,27 +104,36 @@ const SkillCard = ({
 						{copied ? <Check size={16} /> : <Copy size={16} />}
 					</button>
 				</div>
+
 				<div className="footer">
 					<div className="stats">
 						<button type="button" className="upvote" disabled>
-							<ArrowBigUp size={16} />
+							<ArrowBigUp size={16} fill="currentColor" />
 							<span>{tags.length}</span>
 						</button>
+
 						<div className="comments">
-							<MessageSquare size={16} />
-							<span>{authorEmail ? 1 : 0}</span>
+							<MessageSquare size={14} />
+							<span>{author.email ? 1 : 0}</span>
 						</div>
 					</div>
+
 					<div className="actions">
 						<Link
 							to="/skills"
 							className="open"
 							title={`Open ${title}`}
-							onClick={handleOpen}
+							onClick={() =>
+								posthog.capture("skill_opened", {
+									skill_title: title,
+									skill_category: category,
+								})
+							}
 						>
 							<span>Open</span>
 							<ArrowUpRight size={14} />
 						</Link>
+
 						<button
 							type="button"
 							className="save"
